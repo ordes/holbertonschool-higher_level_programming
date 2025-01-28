@@ -6,5 +6,5 @@
 class Square:
     """the class Square"""
     def __init__(self, size):
-         """func to initialize objects"""
+        """func to initialize objects"""
         self.__size = size
