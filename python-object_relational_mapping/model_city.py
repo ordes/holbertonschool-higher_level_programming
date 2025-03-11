@@ -1,23 +1,20 @@
 #!/usr/bin/python3
 '''
-Module to create State model class
+Module to create City model class
 to be used as an Object mapper
 '''
 
 
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, Integer, String, ForeignKey
+from model_state import Base
 
 
-Base = declarative_base()
-
-
-class State(Base):
+class City(Base):
     '''
     State base model
     '''
 
-    __tablename__ = "states"
+    __tablename__ = "cities"
 
     id = Column(Integer,
                 autoincrement=True,
@@ -27,3 +24,5 @@ class State(Base):
 
     name = Column(String(128),
                   nullable=False)
+
+    state_id = Column(Integer, ForeignKey('states.id'), nullable=False)

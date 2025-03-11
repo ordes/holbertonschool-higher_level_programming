@@ -6,6 +6,7 @@ Start link class to table in database
 
 import sys
 from model_state import Base, State
+from model_city import City
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import Session
 
@@ -19,8 +20,13 @@ if __name__ == "__main__":
     Base.metadata.create_all(eng)
 
     session = Session(bind=eng)
-    session.query(State)\
-           .filter(State.id == 2)\
-           .update({"name": "New Mexico"})
+    new_state = State(name='Louisiana')
+    session.add(new_state)
     session.commit()
+    results = session.query(State.name, City.id, City.name)\
+                     .join(City)\
+                     .order_by(City.id)\
+                     .all()
+    for row in results:
+        print(f"{row[0]}: ({row[1]}) {row[2]}")
     session.close()
